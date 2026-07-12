@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>防衛大学校オープンキャンパス 予定表（7/17〜7/19）</title>
+<style>
+/* ============================================================
+   表示層のスタイル（外部フォント・外部画像は一切なし）
+   ============================================================ */
+:root{
+  --navy:#0E2340;
+  --navy2:#1B3A63;
+  --sea:#2E7FB8;
+  --sea-lt:#DCEBF5;
+  --paper:#F6F8FA;
+  --card:#FFFFFF;
+  --ink:#12202F;
+  --ink-soft:#54677C;
+  --line:#D8E1EA;
+  --amber:#C97C10;
+  --amber-lt:#FDF2DD;
+  --alert:#B03A30;
+  --alert-lt:#FBE9E7;
+  --ok:#1E7A54;
+  --radius:14px;
+  --tap:60px;
+  --font: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", Meiryo, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Courier New", monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font);
+  background:var(--paper);
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.6;
+  padding-bottom:40px;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:640px;margin:0 auto;padding:0 12px}
+
+/* ---- ヘッダー ---- */
+header{
+  background:var(--navy);
+  color:#fff;
+  padding:18px 0 16px;
+  border-bottom:5px solid var(--sea);
+}
+header .wrap{display:block}
+h1{font-size:20px;margin:0 0 4px;letter-spacing:.02em}
+.h-sub{font-size:14px;color:#A9C4DC;margin:0}
+.h-place{font-size:13px;color:#8FAECB;margin:6px 0 0}
+
+/* ---- 注意バナー ---- */
+.banner{
+  background:var(--amber-lt);
+  border:1px solid #EBD4A2;
+  border-left:6px solid var(--amber);
+  border-radius:10px;
+  padding:12px 14px;
+  margin:14px 0;
+  font-size:15px;
+}
+.banner b{color:var(--amber)}
+.banner.alert{background:var(--alert-lt);border-color:#F0C3BE;border-left-color:var(--alert)}
+.banner.alert b{color:var(--alert)}
+
+/* ---- 日付タブ ---- */
+.tabs{display:flex;gap:8px;margin:14px 0 12px}
+.tab{
+  flex:1;min-height:var(--tap);
+  border:2px solid var(--line);
+  background:var(--card);
+  border-radius:var(--radius);
+  font-family:var(--font);
+  font-size:17px;font-weight:700;color:var(--ink-soft);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;padding:6px 2px;
+}
+.tab small{display:block;font-size:12px;font-weight:600;opacity:.8;margin-top:2px}
+.tab[aria-selected="true"]{
+  background:var(--navy);border-color:var(--navy);color:#fff;
+}
+.tab[aria-selected="true"] small{color:#A9C4DC;opacity:1}
+.tab:focus-visible{outline:3px solid var(--sea);outline-offset:2px}
+
+/* ---- カード共通 ---- */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  margin:12px 0;
+  overflow:hidden;
+}
+.card > h2{
+  margin:0;padding:12px 14px;
+  font-size:15px;letter-spacing:.04em;
+  background:var(--sea-lt);color:var(--navy2);
+  border-bottom:1px solid var(--line);
+}
+.card .body{padding:12px 14px}
+
+/* ---- プラン選択 ---- */
+.plan-list{display:flex;flex-direction:column;gap:8px}
+.plan{
+  display:flex;align-items:flex-start;gap:12px;
+  min-height:var(--tap);
+  border:2px solid var(--line);border-radius:12px;
+  padding:12px;cursor:pointer;background:#fff;
+}
+.plan input{
+  width:26px;height:26px;margin:2px 0 0;flex:none;accent-color:var(--sea);
+}
+.plan .pname{font-weight:700;font-size:17px;display:block}
+.plan .pnote{font-size:14px;color:var(--ink-soft);display:block;margin-top:2px}
+.plan.sel{border-color:var(--sea);background:#F3F9FD}
+
+/* ---- 出発時刻プルダウン ---- */
+.anchor{margin:0 0 12px}
+.anchor:last-child{margin-bottom:0}
+.anchor label{display:block;font-size:14px;font-weight:700;color:var(--navy2);margin-bottom:6px}
+.anchor select{
+  width:100%;min-height:var(--tap);
+  font-family:var(--font);font-size:17px;
+  padding:10px 12px;border:2px solid var(--sea);border-radius:12px;
+  background:#fff;color:var(--ink);
+}
+.hint{font-size:13px;color:var(--ink-soft);margin:8px 0 0}
+
+/* ---- 行程レール（このページの主役） ---- */
+.rail{list-style:none;margin:0;padding:0}
+.row{
+  display:grid;
+  grid-template-columns:74px 1fr 34px;
+  gap:10px;
+  align-items:start;
+  padding:12px 14px;
+  border-bottom:1px solid var(--line);
+  min-height:var(--tap);
+  cursor:pointer;
+  position:relative;
+}
+.row:last-child{border-bottom:0}
+.row .time{
+  font-family:var(--mono);
+  font-variant-numeric:tabular-nums;
+  font-size:21px;font-weight:700;
+  color:var(--navy);
+  line-height:1.25;
+  letter-spacing:-.02em;
+  padding-top:1px;
+}
+.row .dur{display:block;font-family:var(--font);font-size:11px;font-weight:600;color:var(--ink-soft);letter-spacing:0}
+.row .txt .t{font-weight:700;font-size:16px;display:block}
+.row .txt .n{font-size:14px;color:var(--ink-soft);display:block;margin-top:3px}
+.row .owner{
+  display:inline-block;margin-top:6px;
+  font-size:12px;font-weight:700;
+  background:var(--sea-lt);color:var(--navy2);
+  border-radius:999px;padding:2px 10px;
+}
+.row .owner.me{background:#E6F1E9;color:var(--ok)}
+.row .owner.hero{background:var(--navy);color:#fff}
+.row .owner.all{background:#EDE4F4;color:#5A3C7A}
+.row .owner.sub{background:#EDF1F5;color:#7A8899}
+.row input[type=checkbox]{
+  width:30px;height:30px;margin:0;justify-self:end;flex:none;accent-color:var(--ok);
+}
+.row.done{background:#F4F7F4}
+.row.done .txt .t{text-decoration:line-through;color:var(--ink-soft)}
+.row.pin{background:#FFFBF2}
+.row.pin .time{color:var(--amber)}
+.row.pin::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--amber)}
+.row .noclock{font-family:var(--font);font-size:13px;font-weight:700;color:var(--amber)}
+
+.railwarn{
+  margin:0;padding:11px 14px;
+  background:var(--alert-lt);
+  border-bottom:1px solid var(--line);
+  border-left:6px solid var(--alert);
+  font-size:14px;color:#7A2A22;font-weight:600;
+}
+.railwarn.soft{background:var(--amber-lt);border-left-color:var(--amber);color:#7A5210}
+
+/* ---- 持ち物 ---- */
+.pack{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--line);min-height:56px;cursor:pointer}
+.pack:last-child{border-bottom:0}
+.pack input{width:30px;height:30px;margin:0;flex:none;accent-color:var(--ok)}
+.pack .pl{flex:1;font-size:16px}
+.pack .pl small{display:block;font-size:13px;color:var(--ink-soft)}
+.pack.done .pl{text-decoration:line-through;color:var(--ink-soft)}
+.pack .owner{font-size:12px;font-weight:700;background:var(--sea-lt);color:var(--navy2);border-radius:999px;padding:2px 10px;flex:none}
+.pack.star{background:#FFFBF2}
+
+/* ---- 情報リスト ---- */
+ul.facts{margin:0;padding-left:1.1em}
+ul.facts li{margin:0 0 7px;font-size:15px}
+.wx{display:flex;gap:8px}
+.wx div{flex:1;text-align:center;border:1px solid var(--line);border-radius:10px;padding:8px 4px}
+.wx .d{font-size:13px;font-weight:700;color:var(--navy2)}
+.wx .s{font-size:14px;margin:3px 0}
+.wx .t{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:14px;font-weight:700}
+.wx .r{font-size:12px;color:var(--sea)}
+
+/* ---- ボタン ---- */
+.btnrow{display:flex;gap:10px;margin:16px 0 6px}
+button.act{
+  flex:1;min-height:var(--tap);
+  font-family:var(--font);font-size:17px;font-weight:700;
+  border-radius:12px;cursor:pointer;
+}
+#printBtn{background:var(--navy);color:#fff;border:2px solid var(--navy)}
+#resetBtn{background:#fff;color:var(--alert);border:2px solid var(--line)}
+button.act:focus-visible{outline:3px solid var(--sea);outline-offset:2px}
+.foot{font-size:12px;color:var(--ink-soft);text-align:center;margin-top:16px;line-height:1.7}
+.savemsg{font-size:13px;color:var(--ok);text-align:center;min-height:20px;margin-top:4px}
+.savemsg.warn{color:var(--alert)}
+
+/* ---- 印刷（A4・1枚） ---- */
+@media print{
+  @page{size:A4 portrait;margin:10mm}
+  body{background:#fff;font-size:9pt;line-height:1.35;padding:0}
+  .wrap{max-width:none;padding:0}
+  header{background:#fff;color:#000;border-bottom:2px solid #000;padding:0 0 4px}
+  h1{font-size:13pt}
+  .h-sub,.h-place{color:#000;font-size:8pt}
+  .noprint{display:none !important}
+  .card{border:1px solid #999;border-radius:0;margin:5px 0;break-inside:avoid}
+  .card > h2{background:#eee;color:#000;font-size:9pt;padding:3px 6px}
+  .card .body{padding:5px 6px}
+  .row{grid-template-columns:52px 1fr 14px;padding:2px 6px;min-height:0;border-bottom:1px dotted #bbb}
+  .row .time{font-size:10pt}
+  .row .dur{font-size:7pt}
+  .row .txt .t{font-size:9pt}
+  .row .txt .n{font-size:7.5pt}
+  .row .owner{font-size:7pt;padding:0 5px;background:#eee;color:#000;margin-top:2px}
+  .row input[type=checkbox]{width:11px;height:11px}
+  .row.pin{background:#fff}
+  .row.pin::before{display:none}
+  .pack{padding:2px 6px;min-height:0;border-bottom:1px dotted #bbb}
+  .pack input{width:11px;height:11px}
+  .pack .pl{font-size:8.5pt}
+  .pack .pl small{font-size:7pt}
+  .pack .owner{font-size:7pt;background:#eee;color:#000}
+  .pack.star{background:#fff}
+  .banner{border:1px solid #666;border-left-width:3px;padding:4px 6px;margin:5px 0;font-size:8pt}
+  ul.facts li{font-size:8pt;margin-bottom:2px}
+  .wx div{padding:3px 2px}
+  #packCard{columns:2;column-gap:8px}
+  #packCard > h2{column-span:all}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1 id="ttl">防衛大学校 オープンキャンパス</h1>
+    <p class="h-sub" id="sub">2026年7月17日（金）〜19日（日）</p>
+    <p class="h-place" id="place"></p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="banner alert" id="topAlert"></div>
+
+  <!-- 日付タブ -->
+  <div class="tabs noprint" id="tabs" role="tablist"></div>
+
+  <!-- プラン -->
+  <section class="card noprint">
+    <h2>どのプランで動く？</h2>
+    <div class="body">
+      <div class="plan-list" id="planList"></div>
+    </div>
+  </section>
+
+  <!-- 出発時刻 -->
+  <section class="card noprint" id="anchorCard">
+    <h2>出発の時間をえらぶ</h2>
+    <div class="body" id="anchorBox"></div>
+  </section>
+
+  <!-- 行程 -->
+  <section class="card">
+    <h2 id="dayTitle">その日の予定</h2>
+    <div id="railWarn"></div>
+    <ul class="rail" id="rail"></ul>
+  </section>
+
+  <!-- 持ち物 -->
+  <section class="card" id="packCard">
+    <h2>持ち物（チェックしてね）</h2>
+    <div id="packList"></div>
+  </section>
+
+  <!-- 天気 -->
+  <section class="card">
+    <h2>天気の予想（横須賀）</h2>
+    <div class="body">
+      <div class="wx" id="wx"></div>
+      <p class="hint" id="wxNote"></p>
+    </div>
+  </section>
+
+  <!-- 大事なこと -->
+  <section class="card">
+    <h2>大事なこと</h2>
+    <div class="body">
+      <ul class="facts" id="facts"></ul>
+    </div>
+  </section>
+
+  <div class="btnrow noprint">
+    <button class="act" id="printBtn" type="button">印刷する</button>
+    <button class="act" id="resetBtn" type="button">チェックを全部消す</button>
+  </div>
+  <p class="savemsg noprint" id="saveMsg"></p>
+
+  <p class="foot">
+    防衛大学校 入学試験課 046-841-3810<br>
+    〒239-8686 神奈川県横須賀市走水1-10-20
+  </p>
+</main>
+
+<script>
+"use strict";
+
+/* ============================================================
+   【データ層】予定の全内容はこの SCHEDULE ひとつに集約する。
+   HTMLには予定を直書きしない。
+   時刻は絶対値で持たず、anchor（基準時刻）＋ offset（分）＋ duration（分）で持つ。
+   ============================================================ */
+const SCHEDULE = {
+  tripId: "nda-oc-2026",
+  ocWindow: { start:"10:30", end:"16:00" },   // オープンキャンパスの開催時間
+  title: "防衛大学校 オープンキャンパス",
+  subtitle: "2026年7月17日（金）〜19日（日）",
+  place: "防衛大学校（神奈川県横須賀市走水1-10-20）／三四郎・父母は松本から。18〜19日の宿は馬堀海岸のホテル",
+
+  alert: "オープンキャンパスは <b>10:30〜16:00</b>（公式サイトの時刻）。入るときに「受付票」が要ります。車・バイク・自転車では行けません。",
+
+  facts: [
+    "事前に申し込んだ人だけが入れます。入口で<b>受付票</b>（メールで届いたもの）を見せます。紙でもスマホの画面でもOK。",
+    "校内にも近くにも駐車場・駐輪場はありません。<b>車・バイク・自転車では行けません。</b>電車とバスだけです。",
+    "行き方：京急「馬堀海岸駅」からバスで約6分／歩くと約25分。JR横須賀線「横須賀駅」からはバスで約30分。",
+    "馬堀海岸駅と防衛大学校のあいだで<b>無料シャトルバス</b>が出る予定です。並ぶのは<b>9:30から</b>。混んでいて乗れないときは、ふつうの路線バス（有料）に乗ります。",
+    "自由見学です。10:30〜16:00のあいだなら、<b>いつ入っても、いつ帰ってもかまいません。</b>",
+    "校内は広く、足場の悪いところがあります。<b>歩きやすい靴</b>で行ってください。サンダル・革靴はやめましょう。",
+    "中身：学校長のあいさつ、学校の説明、学生舎（寮）見学、学科・教育室の紹介、模擬授業、個別の入試相談、研究室公開など。",
+    "電車の時刻は2026年3月改正のものです。念のため出発前にもう一度たしかめてください。"
+  ],
+
+  weather: {
+    days: [
+      { d:"7/17（金）", s:"晴れ ときどき くもり", t:"30〜31℃ / 24〜25℃", r:"雨 30〜40%" },
+      { d:"7/18（土）", s:"くもり のち 晴れ",     t:"29〜30℃ / 23〜24℃", r:"雨 30%" },
+      { d:"7/19（日）", s:"くもり（一時 雨の予報も）", t:"29〜30℃ / 24℃",   r:"雨 30〜60%" }
+    ],
+    note: "3日とも真夏日で、とても蒸し暑くなりそうです。水分・帽子・塩あめは必ず。予報はまだ変わりやすいので、前日にもう一度見てください。"
+  },
+
+  plans: [
+    { id:"A", name:"A ぜんぶ行く", note:"三四郎は17日（金）の夜に東京へ行き、兄の家にとまる。18日は朝10:30から参加。18日の夜は4人ともホテル。" },
+    { id:"B", name:"B 昼から行く", note:"三四郎は18日（土）の朝、松本07:10発のあずさで東京へ。18日は12:15ごろから参加。18日の夜も兄の家にとまる。" },
+    { id:"C", name:"C 雨のとき",   note:"日程はAと同じ。早めに動いて、屋内のプログラム中心にまわる。" }
+  ],
+
+  /* 持ち物：plans に入っているプランのときだけ表示する */
+  packing: [
+    { id:"pk01", label:"受付票（メールで届いたもの）", note:"人数ぶん。印刷かスマホに保存。これがないと入れません", owner:"父", star:true, plans:["A","B","C"] },
+    { id:"pk02", label:"歩きやすい靴（はいて行く）", note:"サンダル・革靴はダメ", owner:"みんな", star:true, plans:["A","B","C"] },
+    { id:"pk03", label:"水とう or ペットボトル（多め）", note:"1人1.5Lくらい", owner:"みんな", star:true, plans:["A","B","C"] },
+    { id:"pk04", label:"ぼうし", note:"日かげが少ない場所があります", owner:"みんな", plans:["A","B","C"] },
+    { id:"pk05", label:"汗ふきタオル", owner:"みんな", plans:["A","B","C"] },
+    { id:"pk06", label:"塩あめ・塩タブレット", owner:"母", plans:["A","B","C"] },
+    { id:"pk07", label:"日やけ止め", owner:"母", plans:["A","B","C"] },
+    { id:"pk08", label:"折りたたみ傘", owner:"みんな", plans:["A","B","C"] },
+    { id:"pk09", label:"Suica / PASMO（チャージしておく）", note:"1人3,000円以上あると安心", owner:"みんな", plans:["A","B","C"] },
+    { id:"pk10", label:"現金（バス・自販機の小銭）", owner:"みんな", plans:["A","B","C"] },
+    { id:"pk11", label:"あずさの切符（えきねっとの画面でもOK）", owner:"三四郎・父母", star:true, plans:["A","B","C"] },
+    { id:"pk12", label:"身分証（学生証・保険証）", owner:"三四郎", plans:["A","B","C"] },
+    { id:"pk13", label:"聞きたいこと3つのメモ", note:"個別相談でそのまま見せる", owner:"三四郎", plans:["A","B","C"] },
+    { id:"pk14", label:"モバイルバッテリー", owner:"三四郎", plans:["A","B","C"] },
+    { id:"pk15", label:"常備薬・ばんそうこう", owner:"母", plans:["A","B","C"] },
+    { id:"pk16", label:"カメラ（スマホでも）", owner:"父", plans:["A","B","C"] },
+    { id:"pk17", label:"ホテルの予約画面", owner:"父", plans:["A","B","C"] },
+    { id:"pk18", label:"三四郎の着がえ・洗面用具", owner:"三四郎", plans:["A","B","C"] },
+    { id:"pk19", label:"ビニール袋（ぬれたもの用）", owner:"みんな", plans:["A","B","C"] },
+    { id:"pk20", label:"コインロッカー代（600円くらい）", note:"荷物を品川駅に置くため", owner:"三四郎", plans:["B"] },
+    { id:"pk21", label:"レインコート（かっぱ）", note:"傘だけだと手がふさがります", owner:"みんな", star:true, plans:["C"] },
+    { id:"pk22", label:"くつ下のかえ", owner:"みんな", plans:["C"] },
+    { id:"pk23", label:"大きいビニール袋（かばんカバー）", owner:"みんな", plans:["C"] }
+  ],
+
+  /* ---------- 各日 × 各プラン ---------- */
+  days: [
+    /* ======================= 7/17（金） ======================= */
+    {
+      id:"d17", label:"7/17", dow:"金",
+      byPlan:{
+
+        A:{
+          title:"7/17（金）三四郎が東京へ。兄の家にとまる",
+          anchors:[
+            { id:"sj", label:"三四郎が新宿に着く時間（あずさ）",
+              options:[
+                { t:"19:06", label:"19:06 着（松本 16:30 発）" },
+                { t:"20:08", label:"20:08 着（松本 17:20 発）" },
+                { t:"21:17", label:"21:17 着（松本 18:40 発）" }
+              ], default:"20:08" }
+          ],
+          items:[
+            { id:"d17A0", anchor:"sj", offset:-400, duration:0, owner:"父母", noclock:true, clockLabel:"松本", title:"父母は松本で荷づくり", note:"あす18日の午後のあずさで横須賀へ。切符を確認しておく" },
+            { id:"d17A1", anchor:"sj", offset:-170, duration:170, owner:"三四郎", noclock:true, clockLabel:"松本発", title:"松本駅であずさに乗る", note:"16:30発→19:06着／17:20発→20:08着／18:40発→21:17着。切符とスマホの充電を確認", pin:true },
+            { id:"d17A2", anchor:"sj", offset:0,  duration:10, owner:"三四郎", title:"新宿に着く", note:"兄が改札で待っている。ホームを降りたら電話する", pin:true },
+            { id:"d17A3", anchor:"sj", offset:10, duration:45, owner:"三四郎", title:"兄と夕ごはん", note:"新宿で食べるか、買って帰る" },
+            { id:"d17A4", anchor:"sj", offset:55, duration:30, owner:"三四郎", title:"電車で兄の家へ（板橋）", note:"JR埼京線で板橋駅 → 歩いて10分" },
+            { id:"d17A5", anchor:"sj", offset:85, duration:40, owner:"三四郎", title:"家に着く。おふろ・荷物の整理" },
+            { id:"d17A6", anchor:"sj", offset:125, duration:20, owner:"三四郎", title:"あしたの持ち物を玄関に並べる", note:"受付票・歩きやすい靴・水とう・ぼうし。これだけは絶対", pin:true },
+            { id:"d17A7", anchor:"sj", offset:150, duration:0, owner:"三四郎", title:"寝る", note:"あしたは朝8時に家を出る" }
+          ]
+        },
+
+        B:{
+          title:"7/17（金）三四郎はまだ松本。あすの朝が勝負",
+          anchors:[
+            { id:"pr", label:"松本で準備を始める時間",
+              options:[{t:"19:00"},{t:"20:00"},{t:"21:00"}], default:"20:00" }
+          ],
+          items:[
+            { id:"d17B1", anchor:"pr", offset:0,  duration:30, owner:"三四郎", title:"持ち物をぜんぶかばんに入れる", note:"受付票・身分証・歩きやすい靴・水とう・ぼうし", pin:true },
+            { id:"d17B2", anchor:"pr", offset:30, duration:15, owner:"三四郎", title:"あずさの切符を確認する", note:"松本 07:10発 → 新宿 09:46着。これを逃すと、防大にいられる時間が大きく減ります", pin:true },
+            { id:"d17B3", anchor:"pr", offset:45, duration:10, owner:"三四郎", title:"兄に「何時のあずさか」を連絡する", note:"新宿の改札で待ち合わせ" },
+            { id:"d17B4", anchor:"pr", offset:55, duration:20, owner:"父母", title:"父母もあすの支度", note:"あす午後のあずさ（13:10発など）で横須賀へ" },
+            { id:"d17B5", anchor:"pr", offset:80, duration:0, owner:"三四郎", title:"早く寝る", note:"起きるのは6時ごろ。目ざましを2つ" }
+          ]
+        },
+
+        C:{
+          title:"7/17（金）雨のとき：三四郎が東京へ。兄の家にとまる",
+          anchors:[
+            { id:"sj", label:"三四郎が新宿に着く時間（あずさ）",
+              options:[
+                { t:"19:06", label:"19:06 着（松本 16:30 発）" },
+                { t:"20:08", label:"20:08 着（松本 17:20 発）" },
+                { t:"21:17", label:"21:17 着（松本 18:40 発）" }
+              ], default:"19:06" }
+          ],
+          items:[
+            { id:"d17C1", anchor:"sj", offset:-170, duration:170, owner:"三四郎", noclock:true, clockLabel:"松本発", title:"松本駅であずさに乗る", note:"雨。受付票はビニール袋に入れて持つ", pin:true },
+            { id:"d17C2", anchor:"sj", offset:0,  duration:15, owner:"三四郎", title:"新宿に着く", note:"兄が改札で待っている。駅の外に出ないで合流", pin:true },
+            { id:"d17C3", anchor:"sj", offset:15, duration:45, owner:"三四郎", title:"駅ビルの中で夕ごはん", note:"外を歩かなくていい店にする" },
+            { id:"d17C4", anchor:"sj", offset:60, duration:35, owner:"三四郎", title:"電車で兄の家へ（板橋）" },
+            { id:"d17C5", anchor:"sj", offset:95, duration:45, owner:"三四郎", title:"ぬれた靴と服をかわかす", note:"あした履く靴をかわかすのが最優先。靴に新聞紙を入れる", pin:true },
+            { id:"d17C6", anchor:"sj", offset:145, duration:20, owner:"三四郎", title:"あしたの持ち物を並べる", note:"受付票・かっぱ・くつ下のかえ・ビニール袋" },
+            { id:"d17C7", anchor:"sj", offset:170, duration:0, owner:"三四郎", title:"寝る" }
+          ]
+        }
+      }
+    },
+
+    /* ======================= 7/18（土） ======================= */
+    {
+      id:"d18", label:"7/18", dow:"土",
+      byPlan:{
+
+        A:{
+          title:"7/18（土）オープンキャンパス1日目（朝から）",
+          anchors:[
+            { id:"go", label:"三四郎が兄の家を出る時間（板橋）",
+              options:[{t:"07:30"},{t:"08:00"},{t:"08:30"},{t:"09:00"}], default:"08:00" },
+            { id:"pa", label:"父母が新宿に着く時間（あずさ）",
+              options:[
+                { t:"15:43", label:"15:43 着（松本 13:10 発）" },
+                { t:"16:28", label:"16:28 着（松本 13:45 発）" },
+                { t:"17:26", label:"17:26 着（松本 14:50 発）" }
+              ], default:"15:43" }
+          ],
+          items:[
+            { id:"d18A1", anchor:"go", offset:0,  duration:10, owner:"三四郎", title:"兄の家を出る（兄といっしょ）", note:"受付票・水とう・ぼうし、持った？", pin:true },
+            { id:"d18A2", anchor:"go", offset:10, duration:25, owner:"三四郎", title:"板橋区役所前から都営三田線（目黒方面）", note:"三田駅まで乗る" },
+            { id:"d18A3", anchor:"go", offset:35, duration:10, owner:"三四郎", title:"三田で都営浅草線に乗りかえ", note:"行き先が「三崎口」「浦賀」「京急久里浜」の電車に乗る" },
+            { id:"d18A4", anchor:"go", offset:45, duration:60, owner:"三四郎", title:"そのまま京急線で横須賀中央へ", note:"約1時間。乗りかえなし。寝ていていい" },
+            { id:"d18A5", anchor:"go", offset:105, duration:15, owner:"三四郎", title:"横須賀中央で「浦賀行き」に乗りかえ", note:"3つ先が馬堀海岸" },
+            { id:"d18A6", anchor:"go", offset:120, duration:15, owner:"三四郎", title:"馬堀海岸駅。シャトルバス乗り場へ", note:"駅前。9:30より前には並ばないこと", pin:true },
+            { id:"d18A7", anchor:"go", offset:135, duration:15, owner:"三四郎", title:"無料シャトルバスで防衛大学校へ", note:"6分ほど。混んで乗れないときは路線バス（有料）" },
+            { id:"d18A8", anchor:"go", offset:150, duration:20, owner:"三四郎", title:"受付（受付票を見せる）", note:"受付は10:30から。早く着いても中には入れません", pin:true, entry:true },
+            { id:"d18A9", anchor:"go", offset:170, duration:40, owner:"三四郎", title:"学校長のあいさつ・学校の説明" },
+            { id:"d18A10", anchor:"go", offset:210, duration:45, owner:"三四郎", title:"学生舎（寮）の見学", note:"いちばん見たいところ。ここは外さない", pin:true },
+            { id:"d18A11", anchor:"go", offset:255, duration:45, owner:"三四郎", title:"お昼ごはん", note:"暑いので日かげで休む" },
+            { id:"d18A12", anchor:"go", offset:300, duration:50, owner:"三四郎", title:"模擬授業を1つ受ける" },
+            { id:"d18A13", anchor:"go", offset:350, duration:60, owner:"三四郎", title:"学科・教育室の紹介、研究室公開をまわる" },
+            { id:"d18A14", anchor:"go", offset:410, duration:40, owner:"三四郎", title:"個別の入試相談", note:"メモした質問3つを出す", pin:true },
+            { id:"d18A15", anchor:"go", offset:450, duration:20, owner:"三四郎", title:"制服の試着・記念写真（やっていれば）" },
+            { id:"d18A16", anchor:"go", offset:470, duration:20, owner:"三四郎", title:"帰る。シャトルバスで馬堀海岸駅へ", note:"16:00までに出る", leave:true },
+            { id:"d18A17", anchor:"go", offset:490, duration:30, owner:"三四郎", title:"ホテルにチェックイン（馬堀海岸）" },
+            { id:"d18A18", anchor:"go", offset:520, duration:60, owner:"三四郎", title:"シャワー・休憩。父母を待つ" },
+
+            { id:"d18A20", anchor:"pa", offset:0,  duration:15, owner:"父母", title:"父母が新宿に着く（あずさ）", pin:true },
+            { id:"d18A21", anchor:"pa", offset:15, duration:30, owner:"父母", title:"JR山手線で品川へ" },
+            { id:"d18A22", anchor:"pa", offset:45, duration:15, owner:"父母", title:"品川で京急に乗りかえ", note:"「浦賀」行き。ちがう行き先なら横須賀中央で乗りかえ" },
+            { id:"d18A23", anchor:"pa", offset:60, duration:65, owner:"父母", title:"京急で馬堀海岸へ", note:"約1時間5分" },
+            { id:"d18A24", anchor:"pa", offset:125, duration:15, owner:"父母", title:"馬堀海岸駅に着く。ホテルへ" },
+            { id:"d18A25", anchor:"pa", offset:140, duration:30, owner:"父母", title:"ホテルにチェックイン" },
+            { id:"d18A26", anchor:"pa", offset:170, duration:90, owner:"みんな", title:"4人で夕ごはん（馬堀海岸・横須賀中央あたり）", note:"三四郎はきょう見たことを話す", pin:true },
+            { id:"d18A27", anchor:"pa", offset:275, duration:0, owner:"みんな", title:"ホテルで寝る（4人とも）" }
+          ]
+        },
+
+        B:{
+          title:"7/18（土）オープンキャンパス1日目（昼から）",
+          anchors:[
+            { id:"br", label:"三四郎が新宿に着く時間（あずさ）",
+              options:[
+                { t:"09:46", label:"09:46 着（松本 07:10 発）★これに乗る" },
+                { t:"10:54", label:"10:54 着（松本 08:10 発）→ 防大にいられるのは3時間だけ" },
+                { t:"11:54", label:"11:54 着（松本 09:10 発）→ 間に合いません。使わないこと" }
+              ], default:"09:46" },
+            { id:"pa", label:"父母が新宿に着く時間（あずさ）",
+              options:[
+                { t:"15:43", label:"15:43 着（松本 13:10 発）" },
+                { t:"16:28", label:"16:28 着（松本 13:45 発）" },
+                { t:"17:26", label:"17:26 着（松本 14:50 発）" }
+              ], default:"15:43" }
+          ],
+          items:[
+            { id:"d18B0", anchor:"br", offset:-170, duration:160, owner:"三四郎", noclock:true, clockLabel:"松本発", title:"松本駅であずさに乗る", note:"07:10発→09:46着／08:10発→10:54着。かならず07:10発に乗ること。駅には15分前に", pin:true },
+            { id:"d18B1", anchor:"br", offset:0,  duration:10, owner:"三四郎", title:"新宿に着く。兄と合流", note:"兄が改札で待っている。あいさつは電車の中で。すぐ動く", pin:true },
+            { id:"d18B2", anchor:"br", offset:10, duration:25, owner:"三四郎", title:"JR山手線で品川へ" },
+            { id:"d18B3", anchor:"br", offset:35, duration:15, owner:"三四郎", title:"品川で大きい荷物をコインロッカーへ", note:"帰りに品川を通る。防大に大荷物は持って行かない", pin:true },
+            { id:"d18B4", anchor:"br", offset:50, duration:10, owner:"三四郎", title:"品川で京急に乗りかえ", note:"「浦賀」行き。ちがう行き先なら横須賀中央で乗りかえ" },
+            { id:"d18B5", anchor:"br", offset:60, duration:65, owner:"三四郎", title:"京急で馬堀海岸へ", note:"約1時間5分" },
+            { id:"d18B6", anchor:"br", offset:125, duration:12, owner:"三四郎", title:"馬堀海岸駅。シャトルバス乗り場へ" },
+            { id:"d18B7", anchor:"br", offset:137, duration:13, owner:"三四郎", title:"無料シャトルバスで防衛大学校へ" },
+            { id:"d18B8", anchor:"br", offset:150, duration:15, owner:"三四郎", title:"受付（受付票を見せる）", pin:true, entry:true },
+            { id:"d18B9", anchor:"br", offset:165, duration:30, owner:"三四郎", title:"先にお昼ごはん", note:"着く時間が遅い。長居しない" },
+            { id:"d18B10", anchor:"br", offset:195, duration:40, owner:"三四郎", title:"学生舎（寮）の見学", note:"これは絶対に外さない", pin:true },
+            { id:"d18B11", anchor:"br", offset:235, duration:45, owner:"三四郎", title:"模擬授業を1つ受ける" },
+            { id:"d18B12", anchor:"br", offset:280, duration:40, owner:"三四郎", title:"学科・研究室をまわる" },
+            { id:"d18B13", anchor:"br", offset:320, duration:35, owner:"三四郎", title:"個別の入試相談", note:"時間が足りなければ、あした19日に回す", pin:true },
+            { id:"d18B14", anchor:"br", offset:355, duration:15, owner:"三四郎", title:"制服の試着・記念写真（やっていれば）" },
+            { id:"d18B15", anchor:"br", offset:370, duration:20, owner:"三四郎", title:"帰る。シャトルバスで馬堀海岸駅へ", note:"16:00までに出る", leave:true },
+
+            { id:"d18B20", anchor:"pa", offset:0,  duration:15, owner:"父母", title:"父母が新宿に着く（あずさ）", pin:true },
+            { id:"d18B21", anchor:"pa", offset:15, duration:30, owner:"父母", title:"JR山手線で品川へ" },
+            { id:"d18B22", anchor:"pa", offset:45, duration:15, owner:"父母", title:"品川で京急に乗りかえ", note:"「浦賀」行き" },
+            { id:"d18B23", anchor:"pa", offset:60, duration:65, owner:"父母", title:"京急で馬堀海岸へ" },
+            { id:"d18B24", anchor:"pa", offset:125, duration:15, owner:"父母", title:"馬堀海岸駅に着く。ホテルへ" },
+            { id:"d18B25", anchor:"pa", offset:140, duration:30, owner:"父母", title:"ホテルにチェックイン" },
+            { id:"d18B26", anchor:"pa", offset:170, duration:85, owner:"みんな", title:"4人で夕ごはん（馬堀海岸あたり）", note:"三四郎と兄は父母が着くまで駅前で休んでいる", pin:true },
+            { id:"d18B27", anchor:"pa", offset:260, duration:120, owner:"三四郎", title:"三四郎は兄と電車で板橋へ帰る", note:"2時間かかる。品川でロッカーの荷物を受け取る", pin:true },
+            { id:"d18B28", anchor:"pa", offset:380, duration:0, owner:"三四郎", title:"家に着く。すぐ寝る", note:"あしたも早い" },
+            { id:"d18B29", anchor:"pa", offset:255, duration:0, owner:"父母", title:"父母はホテルで寝る" }
+          ]
+        },
+
+        C:{
+          title:"7/18（土）雨のとき：早めに動いて屋内中心",
+          anchors:[
+            { id:"go", label:"三四郎が兄の家を出る時間（板橋）",
+              options:[{t:"07:00"},{t:"07:30"},{t:"08:00"}], default:"07:30" },
+            { id:"pa", label:"父母が新宿に着く時間（あずさ）",
+              options:[
+                { t:"15:43", label:"15:43 着（松本 13:10 発）" },
+                { t:"16:28", label:"16:28 着（松本 13:45 発）" },
+                { t:"17:26", label:"17:26 着（松本 14:50 発）" }
+              ], default:"15:43" }
+          ],
+          items:[
+            { id:"d18C1", anchor:"go", offset:0,  duration:10, owner:"三四郎", title:"兄の家を出る（かっぱを着る）", note:"受付票はビニール袋に入れる。ぬれたら見せられません", pin:true },
+            { id:"d18C2", anchor:"go", offset:10, duration:30, owner:"三四郎", title:"都営三田線で三田へ", note:"雨の日は電車が遅れる。あせらない" },
+            { id:"d18C3", anchor:"go", offset:40, duration:10, owner:"三四郎", title:"三田で都営浅草線に乗りかえ", note:"「三崎口」「浦賀」「京急久里浜」行き" },
+            { id:"d18C4", anchor:"go", offset:50, duration:65, owner:"三四郎", title:"そのまま京急線で横須賀中央へ" },
+            { id:"d18C5", anchor:"go", offset:115, duration:20, owner:"三四郎", title:"横須賀中央で「浦賀行き」に乗りかえ" },
+            { id:"d18C6", anchor:"go", offset:135, duration:20, owner:"三四郎", title:"馬堀海岸駅。ぜったいにバスに乗る", note:"歩くと25分。雨の日に歩くのはナシ", pin:true },
+            { id:"d18C7", anchor:"go", offset:155, duration:20, owner:"三四郎", title:"バスで防衛大学校へ", note:"シャトルバスが混んでいたら路線バス（有料）に乗る" },
+            { id:"d18C8", anchor:"go", offset:180, duration:20, owner:"三四郎", title:"受付（10:30から）。屋根の下でかっぱをぬぐ", pin:true, entry:true },
+            { id:"d18C9", anchor:"go", offset:200, duration:40, owner:"三四郎", title:"学校長のあいさつ・学校の説明", note:"屋内" },
+            { id:"d18C10", anchor:"go", offset:240, duration:45, owner:"三四郎", title:"学生舎（寮）の見学", note:"屋内。雨でもできる" },
+            { id:"d18C11", anchor:"go", offset:285, duration:45, owner:"三四郎", title:"お昼ごはん（屋内で）" },
+            { id:"d18C12", anchor:"go", offset:330, duration:50, owner:"三四郎", title:"模擬授業", note:"屋内" },
+            { id:"d18C13", anchor:"go", offset:380, duration:60, owner:"三四郎", title:"研究室公開・学科紹介", note:"屋内。外の展示は無理せず飛ばす" },
+            { id:"d18C14", anchor:"go", offset:440, duration:40, owner:"三四郎", title:"個別の入試相談", note:"雨の日はここが空いていて、じっくり聞ける", pin:true },
+            { id:"d18C15", anchor:"go", offset:480, duration:25, owner:"三四郎", title:"帰る。バスで馬堀海岸駅へ", note:"バスが混む。早めに並ぶ", leave:true },
+            { id:"d18C16", anchor:"go", offset:505, duration:40, owner:"三四郎", title:"ホテルにチェックイン。靴と服をかわかす", note:"靴に新聞紙を入れる", pin:true },
+
+            { id:"d18C20", anchor:"pa", offset:0,  duration:15, owner:"父母", title:"父母が新宿に着く（あずさ）" },
+            { id:"d18C21", anchor:"pa", offset:15, duration:45, owner:"父母", title:"JR山手線で品川 → 京急に乗りかえ" },
+            { id:"d18C22", anchor:"pa", offset:60, duration:70, owner:"父母", title:"京急で馬堀海岸へ", note:"雨で遅れることがある" },
+            { id:"d18C23", anchor:"pa", offset:130, duration:40, owner:"父母", title:"馬堀海岸駅 → ホテルにチェックイン" },
+            { id:"d18C24", anchor:"pa", offset:175, duration:90, owner:"みんな", title:"4人で夕ごはん（ホテルの近く）", note:"雨なので遠くに歩かない", pin:true },
+            { id:"d18C25", anchor:"pa", offset:275, duration:0, owner:"みんな", title:"ホテルで寝る" }
+          ]
+        }
+      }
+    },
+
+    /* ======================= 7/19（日） ======================= */
+    {
+      id:"d19", label:"7/19", dow:"日",
+      byPlan:{
+
+        A:{
+          title:"7/19（日）2日目。夕方に松本へ帰る",
+          anchors:[
+            { id:"go", label:"ホテルを出る時間（4人いっしょ）",
+              options:[{t:"09:30"},{t:"09:45"},{t:"10:00"},{t:"10:20"}], default:"09:45" },
+            { id:"rt", label:"松本へ帰るあずさ（新宿発）",
+              options:[
+                { t:"17:00", label:"17:00 発 → 松本 19:41 着" },
+                { t:"18:00", label:"18:00 発 → 松本 20:42 着" },
+                { t:"19:00", label:"19:00 発 → 松本 21:46 着" }
+              ], default:"18:00" }
+          ],
+          items:[
+            { id:"d19A1", anchor:"go", offset:0,  duration:15, owner:"みんな", title:"ホテルをチェックアウト" },
+            { id:"d19A2", anchor:"go", offset:15, duration:15, owner:"父", title:"大きい荷物をホテルにあずける", note:"チェックアウトのあとも夕方まで預かってくれます。帰りに受け取る", pin:true },
+            { id:"d19A3", anchor:"go", offset:30, duration:15, owner:"みんな", title:"馬堀海岸駅のシャトルバス乗り場へ" },
+            { id:"d19A4", anchor:"go", offset:45, duration:15, owner:"みんな", title:"シャトルバスで防衛大学校へ" },
+            { id:"d19A5", anchor:"go", offset:60, duration:15, owner:"みんな", title:"受付（2日目も受付票が必要）", pin:true, entry:true },
+            { id:"d19A6", anchor:"go", offset:75, duration:60, owner:"三四郎", title:"きのう見られなかったところを回る" },
+            { id:"d19A7", anchor:"go", offset:135, duration:45, owner:"みんな", title:"お昼ごはん" },
+            { id:"d19A8", anchor:"go", offset:180, duration:50, owner:"三四郎", title:"模擬授業（きのうと違う分野）" },
+            { id:"d19A9", anchor:"go", offset:230, duration:40, owner:"三四郎", title:"防大生と話す（座談会）", note:"寮の生活のことを聞くなら、ここがいちばん", pin:true },
+            { id:"d19A10", anchor:"go", offset:270, duration:30, owner:"父母", title:"最後の入試相談・パンフレットをもらう" },
+            { id:"d19A11", anchor:"go", offset:300, duration:20, owner:"みんな", title:"帰る。シャトルバスで馬堀海岸駅へ", leave:true },
+            { id:"d19A12", anchor:"go", offset:320, duration:20, owner:"父", title:"ホテルで荷物を受け取る" },
+            { id:"d19A13", anchor:"go", offset:340, duration:75, owner:"みんな", title:"京急で品川へ", note:"約1時間5分" },
+            { id:"d19A14", anchor:"go", offset:415, duration:15, owner:"みんな", title:"品川でJR山手線に乗りかえ" },
+            { id:"d19A15", anchor:"go", offset:430, duration:25, owner:"みんな", title:"山手線で新宿へ" },
+
+            { id:"d19A20", anchor:"rt", offset:-25, duration:25, owner:"みんな", title:"新宿でおみやげ・駅弁を買う" },
+            { id:"d19A21", anchor:"rt", offset:-5, duration:5, owner:"三四郎・父母", title:"ホームへ。あずさに乗る", note:"兄とはここでお別れ", pin:true },
+            { id:"d19A22", anchor:"rt", offset:0, duration:160, owner:"三四郎・父母", title:"あずさ発車。松本へ" },
+            { id:"d19A23", anchor:"rt", offset:160, duration:0, owner:"三四郎・父母", noclock:true, clockLabel:"松本着", title:"松本駅に着く。おつかれさま", note:"17:00発→19:41着／18:00発→20:42着／19:00発→21:46着", pin:true }
+          ]
+        },
+
+        B:{
+          title:"7/19（日）2日目。三四郎は板橋から、父母はホテルから",
+          anchors:[
+            { id:"go", label:"三四郎が兄の家を出る時間（板橋）",
+              options:[{t:"07:00"},{t:"07:30"},{t:"08:00"}], default:"07:30" },
+            { id:"pa", label:"父母がホテルを出る時間（馬堀海岸）",
+              options:[{t:"09:30"},{t:"09:45"},{t:"10:00"}], default:"09:45" },
+            { id:"rt", label:"松本へ帰るあずさ（新宿発）",
+              options:[
+                { t:"17:00", label:"17:00 発 → 松本 19:41 着" },
+                { t:"18:00", label:"18:00 発 → 松本 20:42 着" },
+                { t:"19:00", label:"19:00 発 → 松本 21:46 着" }
+              ], default:"18:00" }
+          ],
+          items:[
+            { id:"d19B1", anchor:"go", offset:0,  duration:10, owner:"三四郎", title:"兄の家を出る（荷物ぜんぶ持って）", note:"きょうはもう家に戻りません。忘れ物ゼロで", pin:true },
+            { id:"d19B2", anchor:"go", offset:10, duration:25, owner:"三四郎", title:"板橋区役所前から都営三田線（目黒方面）" },
+            { id:"d19B3", anchor:"go", offset:35, duration:10, owner:"三四郎", title:"三田で都営浅草線に乗りかえ" },
+            { id:"d19B4", anchor:"go", offset:45, duration:15, owner:"三四郎", title:"品川で電車をおりる" },
+            { id:"d19B5", anchor:"go", offset:60, duration:20, owner:"三四郎", title:"荷物を品川のコインロッカーへ", note:"帰りにここを通る。防大に大きい荷物は持って行かない", pin:true },
+            { id:"d19B6", anchor:"go", offset:80, duration:70, owner:"三四郎", title:"京急（浦賀行き）で馬堀海岸へ", note:"約1時間5分" },
+            { id:"d19B7", anchor:"go", offset:150, duration:15, owner:"三四郎", title:"馬堀海岸駅。シャトルバス乗り場へ" },
+            { id:"d19B8", anchor:"go", offset:165, duration:15, owner:"三四郎", title:"シャトルバスで防衛大学校へ" },
+            { id:"d19B9", anchor:"go", offset:180, duration:15, owner:"三四郎", title:"受付（2日目も受付票が必要）", pin:true, entry:true },
+            { id:"d19B10", anchor:"go", offset:195, duration:60, owner:"みんな", title:"校内で父母と合流。きのう見られなかったところへ" },
+            { id:"d19B11", anchor:"go", offset:255, duration:45, owner:"みんな", title:"お昼ごはん" },
+            { id:"d19B12", anchor:"go", offset:300, duration:50, owner:"三四郎", title:"模擬授業" },
+            { id:"d19B13", anchor:"go", offset:350, duration:40, owner:"三四郎", title:"防大生と話す（座談会）", pin:true },
+            { id:"d19B14", anchor:"go", offset:390, duration:30, owner:"父母", title:"最後の入試相談・パンフレットをもらう" },
+            { id:"d19B15", anchor:"go", offset:420, duration:20, owner:"みんな", title:"帰る。シャトルバスで馬堀海岸駅へ", leave:true },
+            { id:"d19B16", anchor:"go", offset:440, duration:75, owner:"みんな", title:"京急で品川へ" },
+            { id:"d19B17", anchor:"go", offset:515, duration:15, owner:"三四郎", title:"品川で荷物を受け取る", pin:true },
+            { id:"d19B18", anchor:"go", offset:530, duration:25, owner:"みんな", title:"JR山手線で新宿へ" },
+
+            { id:"d19B20", anchor:"pa", offset:0,  duration:20, owner:"父母", title:"ホテルをチェックアウト。荷物はホテルにあずける", note:"帰りに受け取る", pin:true },
+            { id:"d19B21", anchor:"pa", offset:20, duration:15, owner:"父母", title:"馬堀海岸駅のシャトルバス乗り場へ" },
+            { id:"d19B22", anchor:"pa", offset:35, duration:15, owner:"父母", title:"シャトルバスで防衛大学校へ" },
+            { id:"d19B23", anchor:"pa", offset:50, duration:10, owner:"父母", title:"受付。校内で三四郎と合流" },
+            { id:"d19B24", anchor:"pa", offset:300, duration:20, owner:"父", title:"帰りにホテルで荷物を受け取る", pin:true },
+
+            { id:"d19B30", anchor:"rt", offset:-25, duration:25, owner:"みんな", title:"新宿でおみやげ・駅弁を買う" },
+            { id:"d19B31", anchor:"rt", offset:-5, duration:5, owner:"三四郎・父母", title:"ホームへ。あずさに乗る", note:"兄とはここでお別れ", pin:true },
+            { id:"d19B32", anchor:"rt", offset:0, duration:160, owner:"三四郎・父母", title:"あずさ発車。松本へ" },
+            { id:"d19B33", anchor:"rt", offset:160, duration:0, owner:"三四郎・父母", noclock:true, clockLabel:"松本着", title:"松本駅に着く。おつかれさま", note:"17:00発→19:41着／18:00発→20:42着／19:00発→21:46着", pin:true }
+          ]
+        },
+
+        C:{
+          title:"7/19（日）雨のとき：屋内中心。早めに切り上げる",
+          anchors:[
+            { id:"go", label:"ホテルを出る時間（4人いっしょ）",
+              options:[{t:"09:20"},{t:"09:40"},{t:"10:00"}], default:"09:40" },
+            { id:"rt", label:"松本へ帰るあずさ（新宿発）",
+              options:[
+                { t:"17:00", label:"17:00 発 → 松本 19:41 着" },
+                { t:"18:00", label:"18:00 発 → 松本 20:42 着" },
+                { t:"19:00", label:"19:00 発 → 松本 21:46 着" }
+              ], default:"17:00" }
+          ],
+          items:[
+            { id:"d19C1", anchor:"go", offset:0,  duration:20, owner:"みんな", title:"ホテルをチェックアウト。荷物はあずける", pin:true },
+            { id:"d19C2", anchor:"go", offset:20, duration:20, owner:"みんな", title:"バスで防衛大学校へ", note:"雨。歩かない。バス代の小銭を用意" },
+            { id:"d19C3", anchor:"go", offset:45, duration:20, owner:"みんな", title:"受付（受付票を見せる）。かっぱをぬぐ", pin:true, entry:true },
+            { id:"d19C4", anchor:"go", offset:65, duration:60, owner:"三四郎", title:"模擬授業（屋内）" },
+            { id:"d19C5", anchor:"go", offset:125, duration:45, owner:"みんな", title:"お昼ごはん（屋内）" },
+            { id:"d19C6", anchor:"go", offset:170, duration:45, owner:"三四郎", title:"防大生と話す（座談会）", note:"雨の日はここに時間をかける", pin:true },
+            { id:"d19C7", anchor:"go", offset:215, duration:40, owner:"父母", title:"最後の入試相談・パンフレットをもらう" },
+            { id:"d19C8", anchor:"go", offset:255, duration:25, owner:"みんな", title:"早めに帰る。バスで馬堀海岸駅へ", note:"雨の日は電車が遅れる。1本早く動く", pin:true, leave:true },
+            { id:"d19C9", anchor:"go", offset:280, duration:20, owner:"父", title:"ホテルで荷物を受け取る" },
+            { id:"d19C10", anchor:"go", offset:300, duration:80, owner:"みんな", title:"京急で品川へ", note:"遅れを見て10分よけいに見る" },
+            { id:"d19C11", anchor:"go", offset:380, duration:35, owner:"みんな", title:"品川でJR山手線に乗りかえ、新宿へ" },
+
+            { id:"d19C20", anchor:"rt", offset:-30, duration:25, owner:"みんな", title:"新宿でおみやげ・駅弁を買う" },
+            { id:"d19C21", anchor:"rt", offset:-5, duration:5, owner:"三四郎・父母", title:"ホームへ。あずさに乗る", note:"兄とはここでお別れ", pin:true },
+            { id:"d19C22", anchor:"rt", offset:0, duration:160, owner:"三四郎・父母", title:"あずさ発車。松本へ" },
+            { id:"d19C23", anchor:"rt", offset:160, duration:0, owner:"三四郎・父母", noclock:true, clockLabel:"松本着", title:"松本駅に着く。おつかれさま", note:"17:00発→19:41着／18:00発→20:42着／19:00発→21:46着", pin:true }
+          ]
+        }
+      }
+    }
+  ]
+};
+
+
+/* ============================================================
+   【永続層】UI は localStorage を直接さわらない。
+   store.load / store.save だけを使う。
+   将来「共有版」にするときは、ここの実装を差し替えるだけ。
+   ============================================================ */
+
+/* インターフェース定義（実装は下の LocalStore） */
+const Store = {
+  async load(tripId) { throw new Error("not implemented"); },      // → { [itemId]: {checked, by, at} }
+  async save(tripId, itemId, value) { throw new Error("not implemented"); } // → void
+};
+
+/* localStorage 実装。使えない環境ではメモリに落ちる（落ちない・消えない） */
+const LocalStore = (function () {
+  const KEY = (tripId) => "trip:" + tripId;
+  const memory = Object.create(null);   // フォールバック用
+  let usable = null;                    // null=未判定 / true / false
+
+  function canUse() {
+    if (usable !== null) return usable;
+    try {
+      const k = "__probe__";
+      window.localStorage.setItem(k, "1");
+      window.localStorage.removeItem(k);
+      usable = true;
+    } catch (e) {
+      usable = false;
+    }
+    return usable;
+  }
+
+  function readAll(tripId) {
+    if (!canUse()) return memory[tripId] ? Object.assign({}, memory[tripId]) : {};
+    try {
+      const raw = window.localStorage.getItem(KEY(tripId));
+      if (!raw) return {};
+      const obj = JSON.parse(raw);
+      return (obj && typeof obj === "object") ? obj : {};
+    } catch (e) {
+      usable = false;                       // 壊れていたらメモリに切り替え
+      return memory[tripId] ? Object.assign({}, memory[tripId]) : {};
+    }
+  }
+
+  return {
+    mode() { return canUse() ? "localStorage" : "memory"; },
+
+    async load(tripId) {
+      return readAll(tripId);
+    },
+
+    async save(tripId, itemId, value) {
+      const all = readAll(tripId);
+      if (value === null || value === undefined) delete all[itemId];
+      else all[itemId] = value;
+
+      memory[tripId] = all;                 // つねにメモリにも保持
+      if (!canUse()) return;
+      try {
+        window.localStorage.setItem(KEY(tripId), JSON.stringify(all));
+      } catch (e) {
+        usable = false;                     // 容量オーバー等 → メモリのみ
+      }
+    },
+
+    async clear(tripId) {
+      memory[tripId] = {};
+      if (!canUse()) return;
+      try { window.localStorage.removeItem(KEY(tripId)); } catch (e) { usable = false; }
+    }
+  };
+})();
+
+/* ← 将来の「共有版」では、ここだけ差し替える */
+const store = LocalStore;
+
+
+/* ============================================================
+   【表示層】store としか会話しない。localStorage を直接呼ばない。
+   ============================================================ */
+(function () {
+  const $ = (id) => document.getElementById(id);
+
+  const UI = {
+    dayId: SCHEDULE.days[0].id,
+    planId: SCHEDULE.plans[0].id,
+    anchorTimes: {},   // { "d18|A|go": "08:00", ... }
+    state: {}          // store から読んだチェック状態
+  };
+
+  /* ---- 時刻ユーティリティ ---- */
+  const toMin = (hhmm) => {
+    const p = String(hhmm).split(":");
+    return (parseInt(p[0], 10) * 60) + parseInt(p[1], 10);
+  };
+  const toHHMM = (min) => {
+    let m = ((min % 1440) + 1440) % 1440;
+    const h = Math.floor(m / 60), mm = m % 60;
+    return String(h).padStart(2, "0") + ":" + String(mm).padStart(2, "0");
+  };
+  const durLabel = (d) => {
+    if (!d) return "";
+    if (d < 60) return d + "分";
+    const h = Math.floor(d / 60), m = d % 60;
+    return m ? h + "時間" + m + "分" : h + "時間";
+  };
+  const ownerClass = (o) => {
+    if (o.indexOf("三四郎") >= 0) return "hero";   // 三四郎が主役
+    if (o === "みんな") return "all";
+    if (o === "兄") return "sub";
+    return "";                                     // 父母・父・母
+  };
+  const esc = (s) => String(s).replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]));
+
+  const cur = () => {
+    const day = SCHEDULE.days.find((d) => d.id === UI.dayId);
+    return { day, block: day.byPlan[UI.planId] };
+  };
+  const akey = (anchorId) => UI.dayId + "|" + UI.planId + "|" + anchorId;
+
+  function ensureAnchorDefaults() {
+    SCHEDULE.days.forEach((day) => {
+      SCHEDULE.plans.forEach((p) => {
+        const b = day.byPlan[p.id];
+        if (!b) return;
+        b.anchors.forEach((a) => {
+          const k = day.id + "|" + p.id + "|" + a.id;
+          if (!UI.anchorTimes[k]) UI.anchorTimes[k] = a.default || a.options[0].t;
+        });
+      });
+    });
+  }
+
+  /* ---- 描画 ---- */
+  function renderHead() {
+    $("ttl").textContent = SCHEDULE.title;
+    $("sub").textContent = SCHEDULE.subtitle;
+    $("place").textContent = SCHEDULE.place;
+    $("topAlert").innerHTML = SCHEDULE.alert;
+  }
+
+  function renderTabs() {
+    const box = $("tabs");
+    box.innerHTML = "";
+    SCHEDULE.days.forEach((d) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "tab";
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-selected", d.id === UI.dayId ? "true" : "false");
+      b.innerHTML = esc(d.label) + "<small>" + esc(d.dow) + "曜日</small>";
+      b.addEventListener("click", () => { UI.dayId = d.id; renderAll(); window.scrollTo(0, 0); });
+      box.appendChild(b);
+    });
+  }
+
+  function renderPlans() {
+    const box = $("planList");
+    box.innerHTML = "";
+    SCHEDULE.plans.forEach((p) => {
+      const lab = document.createElement("label");
+      lab.className = "plan" + (p.id === UI.planId ? " sel" : "");
+      const r = document.createElement("input");
+      r.type = "radio"; r.name = "plan"; r.value = p.id; r.checked = (p.id === UI.planId);
+      r.addEventListener("change", () => { UI.planId = p.id; renderAll(); });
+      const sp = document.createElement("span");
+      sp.innerHTML = '<span class="pname">' + esc(p.name) + '</span><span class="pnote">' + esc(p.note) + "</span>";
+      lab.appendChild(r); lab.appendChild(sp);
+      box.appendChild(lab);
+    });
+  }
+
+  function renderAnchors() {
+    const { block } = cur();
+    const box = $("anchorBox");
+    box.innerHTML = "";
+    block.anchors.forEach((a) => {
+      const wrap = document.createElement("div");
+      wrap.className = "anchor";
+      const id = "sel_" + a.id;
+      const lab = document.createElement("label");
+      lab.setAttribute("for", id);
+      lab.textContent = a.label;
+      const sel = document.createElement("select");
+      sel.id = id;
+      a.options.forEach((o) => {
+        const op = document.createElement("option");
+        op.value = o.t;
+        op.textContent = o.label || o.t;
+        op.selected = (UI.anchorTimes[akey(a.id)] === o.t);
+        sel.appendChild(op);
+      });
+      sel.addEventListener("change", () => {
+        UI.anchorTimes[akey(a.id)] = sel.value;
+        renderRail();   /* ← 変えると、その先の時刻が全部おしなおされる */
+      });
+      wrap.appendChild(lab); wrap.appendChild(sel);
+      box.appendChild(wrap);
+    });
+    const h = document.createElement("p");
+    h.className = "hint";
+    h.textContent = "ここを変えると、下の予定の時間がぜんぶ計算しなおされます。";
+    box.appendChild(h);
+  }
+
+  function renderRail() {
+    const { block } = cur();
+    $("dayTitle").textContent = block.title;
+
+    const rows = block.items.map((it) => {
+      const base = UI.anchorTimes[akey(it.anchor)];
+      const start = toMin(base) + it.offset;
+      return { it, start };
+    }).sort((a, b) => a.start - b.start);
+
+    /* 開催時間（10:30〜16:00）とのズレを検知して知らせる */
+    const wbox = $("railWarn");
+    wbox.innerHTML = "";
+    if (SCHEDULE.ocWindow) {
+      const oStart = toMin(SCHEDULE.ocWindow.start), oEnd = toMin(SCHEDULE.ocWindow.end);
+      const entry = rows.find((r) => r.it.entry);
+      const leave = rows.find((r) => r.it.leave);
+      const msgs = [];
+      if (entry && entry.start < oStart) {
+        msgs.push({ soft: true, m: "受付は " + SCHEDULE.ocWindow.start + " から。" + toHHMM(entry.start) +
+          " に着いても " + Math.round(oStart - entry.start) + "分 外で待つことになります。もう1本おそい出発でも大丈夫です。" });
+      }
+      if (leave && leave.start > oEnd) {
+        msgs.push({ soft: false, m: "この出発だと、帰る時間が " + toHHMM(leave.start) + " になってしまいます。防大は " +
+          SCHEDULE.ocWindow.end + " に閉まります。もっと早い電車にするか、下の予定をいくつか飛ばしてください。" });
+      }
+      msgs.forEach((x) => {
+        const d = document.createElement("div");
+        d.className = "railwarn" + (x.soft ? " soft" : "");
+        d.textContent = x.m;
+        wbox.appendChild(d);
+      });
+    }
+
+    const ul = $("rail");
+    ul.innerHTML = "";
+    rows.forEach(({ it, start }) => {
+      const li = document.createElement("li");
+      const st = UI.state[it.id];
+      const done = !!(st && st.checked);
+      li.className = "row" + (done ? " done" : "") + (it.pin ? " pin" : "");
+
+      const time = document.createElement("div");
+      time.className = "time";
+      time.innerHTML = (it.noclock
+          ? '<span class="noclock">' + esc(it.clockLabel || "") + "</span>"
+          : esc(toHHMM(start))) +
+        (it.duration ? '<span class="dur">' + esc(durLabel(it.duration)) + "</span>" : "");
+
+      const txt = document.createElement("div");
+      txt.className = "txt";
+      txt.innerHTML =
+        '<span class="t">' + esc(it.title) + "</span>" +
+        (it.note ? '<span class="n">' + esc(it.note) + "</span>" : "") +
+        '<span class="owner ' + ownerClass(it.owner) + '">' + esc(it.owner) + "</span>";
+
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = done;
+      cb.setAttribute("aria-label", it.title);
+      cb.addEventListener("click", (e) => e.stopPropagation());
+      cb.addEventListener("change", () => toggle(it.id, it.owner, cb.checked));
+
+      li.appendChild(time); li.appendChild(txt); li.appendChild(cb);
+      li.addEventListener("click", () => { cb.checked = !cb.checked; toggle(it.id, it.owner, cb.checked); });
+      ul.appendChild(li);
+    });
+  }
+
+  function renderPacking() {
+    const box = $("packList");
+    box.innerHTML = "";
+    SCHEDULE.packing.filter((p) => p.plans.indexOf(UI.planId) >= 0).forEach((p) => {
+      const st = UI.state[p.id];
+      const done = !!(st && st.checked);
+      const row = document.createElement("div");
+      row.className = "pack" + (done ? " done" : "") + (p.star ? " star" : "");
+
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = done;
+      cb.setAttribute("aria-label", p.label);
+      cb.addEventListener("click", (e) => e.stopPropagation());
+      cb.addEventListener("change", () => toggle(p.id, p.owner, cb.checked));
+
+      const t = document.createElement("div");
+      t.className = "pl";
+      t.innerHTML = esc(p.label) + (p.note ? "<small>" + esc(p.note) + "</small>" : "");
+
+      const o = document.createElement("span");
+      o.className = "owner";
+      o.textContent = p.owner;
+
+      row.appendChild(cb); row.appendChild(t); row.appendChild(o);
+      row.addEventListener("click", () => { cb.checked = !cb.checked; toggle(p.id, p.owner, cb.checked); });
+      box.appendChild(row);
+    });
+  }
+
+  function renderStatic() {
+    const wx = $("wx");
+    wx.innerHTML = "";
+    SCHEDULE.weather.days.forEach((d) => {
+      const el = document.createElement("div");
+      el.innerHTML = '<div class="d">' + esc(d.d) + '</div><div class="s">' + esc(d.s) +
+        '</div><div class="t">' + esc(d.t) + '</div><div class="r">' + esc(d.r) + "</div>";
+      wx.appendChild(el);
+    });
+    $("wxNote").textContent = SCHEDULE.weather.note;
+
+    const f = $("facts");
+    f.innerHTML = "";
+    SCHEDULE.facts.forEach((s) => {
+      const li = document.createElement("li");
+      li.innerHTML = s;
+      f.appendChild(li);
+    });
+  }
+
+  /* ---- 状態の読み書き（store 経由のみ） ---- */
+  async function toggle(itemId, owner, checked) {
+    const value = checked ? { checked: true, by: owner, at: new Date().toISOString() } : null;
+    if (checked) UI.state[itemId] = value; else delete UI.state[itemId];
+    renderRail(); renderPacking();
+    try {
+      await store.save(SCHEDULE.tripId, itemId, value);
+      note(store.mode && store.mode() === "memory"
+        ? "この端末では保存できないため、画面を閉じるとチェックは消えます"
+        : "保存しました", store.mode && store.mode() === "memory");
+    } catch (e) {
+      note("保存できませんでした（チェックは画面上だけ残ります）", true);
+    }
+  }
+
+  let noteTimer = null;
+  function note(msg, warn) {
+    const el = $("saveMsg");
+    el.textContent = msg;
+    el.className = "savemsg noprint" + (warn ? " warn" : "");
+    clearTimeout(noteTimer);
+    noteTimer = setTimeout(() => { el.textContent = ""; }, 2500);
+  }
+
+  function renderAll() {
+    renderTabs(); renderPlans(); renderAnchors(); renderRail(); renderPacking();
+  }
+
+  async function boot() {
+    renderHead();
+    renderStatic();
+    ensureAnchorDefaults();
+    try {
+      UI.state = await store.load(SCHEDULE.tripId) || {};
+    } catch (e) {
+      UI.state = {};
+      note("前回のチェックを読み込めませんでした", true);
+    }
+    renderAll();
+
+    $("printBtn").addEventListener("click", () => window.print());
+    $("resetBtn").addEventListener("click", async () => {
+      if (!window.confirm("チェックを全部消します。よろしいですか？")) return;
+      UI.state = {};
+      try {
+        if (store.clear) await store.clear(SCHEDULE.tripId);
+        else {
+          const ids = SCHEDULE.packing.map((p) => p.id);
+          SCHEDULE.days.forEach((d) => SCHEDULE.plans.forEach((p) => {
+            const b = d.byPlan[p.id];
+            if (b) b.items.forEach((i) => ids.push(i.id));
+          }));
+          for (const id of ids) await store.save(SCHEDULE.tripId, id, null);
+        }
+        note("消しました");
+      } catch (e) {
+        note("消せませんでした", true);
+      }
+      renderRail(); renderPacking();
+    });
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>
